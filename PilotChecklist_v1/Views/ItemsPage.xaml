@@ -4,7 +4,7 @@
              x:Class="PilotChecklist_v1.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:PilotChecklist_v1.ViewModels"  
-             xmlns:model="clr-namespace:PilotChecklist_v1.Models"  
+             xmlns:model="clr-namespace:PilotChecklist.Classes"  
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>

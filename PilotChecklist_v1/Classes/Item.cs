@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PilotChecklist_v1.Models
+namespace PilotChecklist.Classes
 {
     public class Item
     {

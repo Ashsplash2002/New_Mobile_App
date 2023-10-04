@@ -4,7 +4,6 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using PilotChecklist.Classes;
-using PilotChecklist_v1.Models;
 
 namespace PilotChecklist_v1.DataAccess
 {

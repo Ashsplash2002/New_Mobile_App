@@ -7,26 +7,27 @@ namespace PilotChecklist.Classes
     internal class Checklist
     {
         int id;
-        decimal progress;
+        string progress;
         bool isCompleted;
-        int flightId;
+        DateTime timestamp;
+
 
         public int Id { get { return id; } set { id = value; } }
-        public decimal Progress { get { return progress; } set { progress = value; } }
-        public bool IsCompleted { get {  return isCompleted; } set {  isCompleted = value; } }
-        public int FlightId { get {  return flightId; } set {  flightId = value; } }
+        public string Progress { get { return progress; } set { progress = value; } }
+        public bool IsCompleted { get { return isCompleted; } set { isCompleted = value; } }
+        public DateTime Timestamp { get { return timestamp; } set { timestamp = value; } }
 
         public Checklist()
         {
 
         }
 
-        public Checklist(int id, decimal progress, bool isCompleted, int flightId)
+        public Checklist(int id, string progress, bool isCompleted, DateTime timestamp)
         {
             Id = id;
             Progress = progress;
             IsCompleted = isCompleted;
-            FlightId = flightId;
+            Timestamp = timestamp;
         }
     }
 }

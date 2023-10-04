@@ -1,6 +1,6 @@
 ﻿using PilotChecklist_v1.Business;
 using PilotChecklist_v1.DataAccess;
-using PilotChecklist_v1.Models;
+using PilotChecklist.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

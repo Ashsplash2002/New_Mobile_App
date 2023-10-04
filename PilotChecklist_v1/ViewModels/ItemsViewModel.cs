@@ -1,4 +1,4 @@
-﻿using PilotChecklist_v1.Models;
+﻿using PilotChecklist.Classes;
 using PilotChecklist_v1.Views;
 using System;
 using System.Collections.ObjectModel;

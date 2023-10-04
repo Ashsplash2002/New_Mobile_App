@@ -1,5 +1,4 @@
-﻿using PilotChecklist_v1.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
