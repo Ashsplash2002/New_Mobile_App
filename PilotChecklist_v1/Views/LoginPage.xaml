@@ -8,6 +8,10 @@
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <Label Text="Username:"></Label>
+            <Entry Placeholder="Enter a username" Text="{Binding Username}"></Entry>
+            <Label Text="Password:"></Label>
+            <Entry Placeholder="Enter a password" Text="{Binding Password}"></Entry>
             <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>
