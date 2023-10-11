@@ -8,5 +8,6 @@ namespace PilotChecklist_v1.Business
     class GlobalVariables
     {
         public static Pilot pilot;
+        public static Flight flight;
     }
 }

@@ -8,43 +8,82 @@
     <ContentPage.BindingContext>
         <vm:HomeViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <ListView x:Name="FlightListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Id}" />
-                                <Label Text="{Binding FlightName}" />
-                                <Label Text="{Binding DestinationFrom}" />
-                                <Label Text="{Binding DestinationTo}" />
-                                <Label Text="{Binding DepartureTime}" />
-                                <Label Text="{Binding ArrivalTime}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
+    <StackLayout>
+        <Label Text="Flight Details" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,20,0,10" />
 
-    </Grid>
+        <CollectionView x:Name="FlightList">
+            <CollectionView.ItemsLayout>
+                <!-- Choose a layout that suits your design, e.g., Grid or VerticalList -->
+                <GridItemsLayout Orientation="Vertical" Span="1" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout >
+                        <Label Padding="10,0,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Flight ID: " />
+                                    <Span Text="{Binding Id}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Padding="10,0,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Flight Name: " />
+                                    <Span Text="{Binding FlightName}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Padding="10,20,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="From: " />
+                                    <Span Text="{Binding DestinationFrom}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Padding="20,0,10,10">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Departure Time: " />
+                                    <Span Text="{Binding DepartureTime}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Padding="10,0,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="To: " />
+                                    <Span Text="{Binding DestinationTo}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Padding="20,0,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Arrival Time: " />
+                                    <Span Text="{Binding ArrivalTime}" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Button Text="View Checklist" Clicked="OnViewChecklistClicked" WidthRequest="10" HeightRequest="50" Margin="0,30,0,0"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            </CollectionView>
+
+    </StackLayout>
 </ContentPage>

@@ -17,13 +17,20 @@ namespace PilotChecklist_v1.Views
         {
             InitializeComponent();
 
-            FlightListView.ItemsSource = GetFlightData();
+            FlightList.ItemsSource = GetFlightData();
         }
 
         private List<Flight> GetFlightData()
         {
+            GlobalVariables.flight = selectOps.SelectFlight_ById(GlobalVariables.pilot.FlightId)[0];
+
             return selectOps.SelectFlight_ById(GlobalVariables.pilot.FlightId);
 
+        }
+
+        private async void OnViewChecklistClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ChecklistPage());
         }
     }
 }
