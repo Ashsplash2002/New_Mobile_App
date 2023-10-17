@@ -130,11 +130,12 @@ namespace PilotChecklist_v1.DataAccess
                                 {
                                     Checklist checklist = new Checklist
                                     {
-                                        Id = Convert.ToInt32(reader["Flight_ID"]),
+                                        Id = Convert.ToInt32(reader["Checklist_ID"]),
                                         IsCompleted = Convert.ToBoolean(reader["isChecked"]),
-                                        Progress = reader["Flight_Name"].ToString(),
-                                        Timestamp = Convert.ToDateTime(reader["SSMA_TimeStamp"])
+                                        Timestamp = (byte[])reader["SSMA_TimeStamp"]
                                     };
+
+                                    checklists.Add(checklist);
                                 }
                             }
                         }
@@ -150,5 +151,51 @@ namespace PilotChecklist_v1.DataAccess
             Console.WriteLine($"Checklist count: {checklists.Count}");
             return checklists;
         }
+
+        public List<Question> SelectQuestions()
+        {
+            List<Question> questions = new List<Question>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(dbOps.ConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM Question";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    Question question = new Question
+                                    {
+                                        Id = Convert.ToInt32(reader["Question_ID"]),
+                                        Item = reader["Question"].ToString(),
+                                        IsChecked = reader.GetBoolean(reader.GetOrdinal("isChecked")),
+                                        Timestamp = (byte[])reader["SSMA_TimeStamp"]
+                                    };
+
+                                    questions.Add(question);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                App.Current.MainPage.DisplayAlert("Question Retrieval Error:", e.Message, "OK");
+                Console.WriteLine($"ERROR MESSAGE -> {e.Message}");
+            }
+
+            Console.WriteLine($"Question count: {questions.Count}");
+            return questions;
+        }
+
     }
 }

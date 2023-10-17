@@ -32,5 +32,10 @@ namespace PilotChecklist_v1.Views
         {
             await Navigation.PushAsync(new ChecklistPage());
         }
+
+        private void CheckIfChecklistComplete()
+        {
+            
+        }
     }
 }

@@ -6,8 +6,6 @@ namespace PilotChecklist_v1.DataAccess
 {
     internal class DatabaseOperations
     {
-        
-
         public string ConnectionString()
         {
             string server = "10.0.0.102";
