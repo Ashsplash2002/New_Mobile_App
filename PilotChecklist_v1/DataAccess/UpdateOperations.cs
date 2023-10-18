@@ -54,7 +54,7 @@ namespace PilotChecklist_v1.DataAccess
             }
         }
 
-        public void Update_Checklist(int id)
+        public void Update_Checklist(int id, bool value)
         {
             try
             {
@@ -71,19 +71,18 @@ namespace PilotChecklist_v1.DataAccess
                             using (SqlCommand command = new SqlCommand(query, connection, transaction))
                             {
                                 command.Parameters.AddWithValue("@ID", id);
-                                command.Parameters.AddWithValue("@IsChecked", true);
+                                command.Parameters.AddWithValue("@IsChecked", value);
 
                                 command.ExecuteNonQuery();
                             }
 
                             transaction.Commit(); // All updates were successful, commit the transaction
-                            App.Current.MainPage.DisplayAlert("Success", "Checklist Completed!", "OK");
+                            Console.WriteLine($"Checklist Updated | value =  {value}");
                         }
                         catch (Exception ex)
                         {
                             transaction.Rollback(); // An error occurred, roll back the transaction
-                            App.Current.MainPage.DisplayAlert("Error Completing Checklist:", ex.Message, "OK");
-
+                            Console.WriteLine($"Error Completing Checklist: {ex.Message}");
                         }
                     }
                 }

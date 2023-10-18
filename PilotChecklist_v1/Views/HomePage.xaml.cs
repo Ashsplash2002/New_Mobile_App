@@ -12,12 +12,21 @@ namespace PilotChecklist_v1.Views
     public partial class HomePage : ContentPage
     {
         SelectOperations selectOps = new SelectOperations();
+        UpdateOperations updateOps = new UpdateOperations();
+        private List<Question> checklistItems = new List<Question>();
 
         public HomePage()
         {
             InitializeComponent();
-
+            InitializeQuestions();
             FlightList.ItemsSource = GetFlightData();
+
+            GlobalVariables.checklist = selectOps.SelectChecklist_ById(GlobalVariables.flight.ChecklistId)[0];
+        }
+
+        private void InitializeQuestions()
+        {
+            checklistItems = selectOps.SelectQuestions();
         }
 
         private List<Flight> GetFlightData()
@@ -33,9 +42,20 @@ namespace PilotChecklist_v1.Views
             await Navigation.PushAsync(new ChecklistPage());
         }
 
-        private void CheckIfChecklistComplete()
+        protected override void OnAppearing()
         {
-            
+            base.OnAppearing();
+
+            bool isChecklistComplete = GlobalVariables.CheckIfChecklistComplete();
+
+            if (isChecklistComplete)
+            {
+                ChecklistStatusLabel.Text = "Checklist is complete";
+            }
+            else
+            {
+                ChecklistStatusLabel.Text = "";
+            }
         }
     }
 }

@@ -9,5 +9,19 @@ namespace PilotChecklist_v1.Business
     {
         public static Pilot pilot;
         public static Flight flight;
+        public static Checklist checklist;
+
+
+        public static bool CheckIfChecklistComplete()
+        {
+            bool checklistComplete = true;
+
+            if (checklist.IsCompleted != true)
+            {
+                checklistComplete = false;
+            }
+
+            return checklistComplete;
+        }
     }
 }

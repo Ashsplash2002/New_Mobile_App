@@ -24,13 +24,15 @@ namespace PilotChecklist_v1.Views
         public ChecklistPage()
         {
             InitializeComponent();
-            InitializeChecklist();
+            InitializeQuestions();
         }
 
-        private void InitializeChecklist()
+        private void InitializeQuestions()
         {
             checklistItems = GetQuestions();
-            Checklist_ListView.ItemsSource = checklistItems;
+            ChecklistCollectionView.ItemsSource = checklistItems;
+
+            BindingContext = this;
         }
 
         private List<Question> GetQuestions()
@@ -43,20 +45,25 @@ namespace PilotChecklist_v1.Views
             var checkbox = (CheckBox)sender;
             var checklistItem = (Question)checkbox.BindingContext;
 
-            checklistItem.IsChecked = e.Value;
-
-            // Check if the item is already in the list
-            if (checklistItems.Contains(checklistItem))
+            if (checklistItem != null)
             {
-                checklistItems.Remove(checklistItem); // Remove it
-            }
+                checklistItem.IsChecked = e.Value;
 
-            checklistItems.Add(checklistItem); // Add the updated item
+                // Check if the item is already in the list
+                if (checklistItems.Contains(checklistItem))
+                {
+                    checklistItems.Remove(checklistItem); // Remove it
+                }
+
+                checklistItems.Add(checklistItem); // Add the updated item
+            }
         }
 
         private void Save_Clicked(object sender, EventArgs e)
         {
             updateOps.Update_Questions(checklistItems);
+            updateOps.Update_Checklist(GlobalVariables.checklist.Id, GlobalVariables.CheckIfChecklistComplete());
+            Navigation.PopAsync();
         }
 
         private void CheckAllCheckboxes()
@@ -66,8 +73,8 @@ namespace PilotChecklist_v1.Views
                 item.IsChecked = true;
             }
 
-            Checklist_ListView.ItemsSource = temp_checklistItems;
-            Checklist_ListView.ItemsSource = checklistItems;
+            ChecklistCollectionView.ItemsSource = temp_checklistItems;
+            ChecklistCollectionView.ItemsSource = checklistItems;
         }
 
         private void CheckAll_Clicked(object sender, EventArgs e)
@@ -82,8 +89,8 @@ namespace PilotChecklist_v1.Views
                 item.IsChecked = false;
             }
 
-            Checklist_ListView.ItemsSource = temp_checklistItems;
-            Checklist_ListView.ItemsSource = checklistItems;
+            ChecklistCollectionView.ItemsSource = temp_checklistItems;
+            ChecklistCollectionView.ItemsSource = checklistItems;
         }
 
         private void UncheckAll_Clicked(object sender, EventArgs e)
@@ -91,7 +98,7 @@ namespace PilotChecklist_v1.Views
             UncheckAllCheckboxes();
         }
 
-        private void FinishChecklist()
+        private async void FinishChecklist()
         {
             bool allChecked = true;
 
@@ -106,13 +113,18 @@ namespace PilotChecklist_v1.Views
 
             if (allChecked)
             {
-                updateOps.Update_Checklist(GlobalVariables.flight.ChecklistId);
+                updateOps.Update_Checklist(GlobalVariables.checklist.Id, true);
+                updateOps.Update_Questions(checklistItems);
 
-                Navigation.PushAsync(new HomePage());
+                GlobalVariables.checklist = selectOps.SelectChecklist_ById(GlobalVariables.checklist.Id)[0];
+
+                await Navigation.PopAsync();
             }
             else
             {
-                App.Current.MainPage.DisplayAlert("Checklist Incomplete", "Make sure all items are checked.", "OK");
+                updateOps.Update_Checklist(GlobalVariables.checklist.Id, false);
+                GlobalVariables.checklist = selectOps.SelectChecklist_ById(GlobalVariables.checklist.Id)[0];
+                await App.Current.MainPage.DisplayAlert("Checklist Incomplete", "Make sure all items are checked.", "OK");
             }
         }
 
