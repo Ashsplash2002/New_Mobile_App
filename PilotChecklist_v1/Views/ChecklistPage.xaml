@@ -6,8 +6,6 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Clicked="Save_Clicked"></ToolbarItem>
         <ToolbarItem Text="Finish" Clicked="FinishChecklist_Clicked"></ToolbarItem>
-        <ToolbarItem Text="Check All" Clicked="CheckAll_Clicked"></ToolbarItem>
-        <ToolbarItem Text="Uncheck All" Clicked="UncheckAll_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <CollectionView x:Name="ChecklistCollectionView">
